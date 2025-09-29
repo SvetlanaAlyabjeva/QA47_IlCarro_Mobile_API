@@ -37,5 +37,39 @@ public Response addNewCar(CarDto car){
                 .when()
                 .post(BASE_URL+ADD_NEW_CAR_URL)
                 .thenReturn();
+
+}public Response addNewCarNegative_WrongToken(CarDto car, String token){
+        return given()
+                .body(car)
+                .contentType(ContentType.JSON)
+                .header("Authorization", token)
+                .when()
+                .post(BASE_URL+ADD_NEW_CAR_URL)
+                .thenReturn();
+}
+public  Response getUserCars(){
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", tokenDto.getAccessToken())
+                .when()
+                .get(BASE_URL+GET_ALL_USER_CARS_URL)
+                .thenReturn();
+
+}public  Response getUserCarsNegative_WrongUrl(String url){
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", tokenDto.getAccessToken())
+                .when()
+                .get(BASE_URL+url)
+                .thenReturn();
+}
+public Response deleteCarBySerialNumber(String serialNumber){
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Authorization", tokenDto.getAccessToken())
+                .when()
+                .delete(BASE_URL+DELETE_CAR_URL+serialNumber)
+                .thenReturn();
+
 }
 }
